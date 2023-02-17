@@ -4,13 +4,40 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Weather Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/reset.css">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
-  
+  <div class="container-fluid">
+    <header>
+      <!-- basic header, non-dynamic -->
+    </header>
+  </div>
+
+  <div class="container-fluid">
+    <main>
+      <form>
+        <!-- Aside form to enter city. Single submitable input. -->
+        <!-- saves recent search history in local storage -->
+          <ul class="recent-searches">
+            <!-- get local storage to print up to 10 recent searches -->
+            <!-- initialize a click on recent search to resubmit to form -->
+          </ul>
+      </form>
+      <section>
+        <!-- box to display result of submittable form -->
+        <!-- needs city name, date, temp, humidity, and windspeed, and an image to represent -->
+      </section>
+      <section>
+        <!-- bootstrap cards in a row – 5 day forecast -->`
+        <!-- same info as above, but condensed -->
+      </section>
+    </main>
+  </div>
+
 </body>
 
 </html>

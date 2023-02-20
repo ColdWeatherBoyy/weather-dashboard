@@ -19,21 +19,31 @@
 
   <div class="container-fluid">
     <main>
-      <form>
-        <!-- Aside form to enter city. Single submitable input. -->
-        <!-- saves recent search history in local storage -->
-          <ul class="recent-searches">
-            <!-- get local storage to print up to 10 recent searches -->
-            <!-- initialize a click on recent search to resubmit to form -->
-          </ul>
-      </form>
       <section>
-        <!-- box to display result of submittable form -->
-        <!-- needs city name, date, temp, humidity, and windspeed, and an image to represent -->
+        <form>
+          <!-- Aside form to enter city. Single submitable input. -->
+          <label></label>
+          <input type="text">
+          <button></button>
+          <!-- saves recent search history in local storage -->
+        </form>
+        <ul class="recent-searches">
+          <!-- get local storage to print up to 10 recent searches -->
+          <!-- initialize a click on recent search to resubmit to form -->
+        </ul>
       </section>
       <section>
-        <!-- bootstrap cards in a row – 5 day forecast -->`
-        <!-- same info as above, but condensed -->
+        <div class="today-weather">
+          <h3>Where do you want to know about today, DATE?</h3>
+        </div>
+        <!-- needs city name, date, temp, humidity, and windspeed, and an image to represent -->
+        <div class="forecast-cards">
+          <card id="forecast-1"></card>
+          <card id="forecast-2"></card>
+          <card id="forecast-3"></card>
+          <card id="forecast-4"></card>
+          <card id="forecast-5"></card>
+        </div>
       </section>
     </main>
   </div>

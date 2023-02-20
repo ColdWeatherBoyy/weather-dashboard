@@ -2,8 +2,10 @@
 // for submit eventlistener
 var submitBtn = document.querySelector(".submit-btn");
 
+
 // for dayjs
-let currentDate = dayjs()
+var currentDate = dayjs()
+var formatDate = dayjs().format("M/DD/YY")
 var dateField = document.querySelector("#current-date");
 var forecastDatesArr = document.querySelectorAll(".forecast-date");
 
@@ -29,7 +31,7 @@ var forecastDatesArr = document.querySelectorAll(".forecast-date");
 //  Function
 
   //dayJS
-dateField.textContent = currentDate.format("M/DD/YY");;
+dateField.textContent = formatDate;
 
 for (let i = 0; i < forecastDatesArr.length; i++) {
   forecastDatesArr[i].textContent = currentDate.add(i+1, 'day').format("M/DD/YY");
@@ -49,23 +51,53 @@ for (let i = 0; i < forecastDatesArr.length; i++) {
 // event listener for submit btn with complex function
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
-  console.log("YO")
+  console.log("YO");
   var locationValue = event.target.previousElementSibling.value;
   
-  requestURL = "https://api.openweathermap.org/data/2.5/weather?q="+locationValue+"&appid=561f93b4cd27217b081260550dc09c48"
-  fetch(requestURL)
+  
+  todayWeatherURL = "https://api.openweathermap.org/data/2.5/weather?q="+locationValue+"&appid=561f93b4cd27217b081260550dc09c48&units=imperial"
+  forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q="+locationValue+"&appid=561f93b4cd27217b081260550dc09c48&units=imperial"
+
+  fetch(todayWeatherURL)
     .then(function (response) {
+      // this is designed to check whether the request can be completed to validate location entered by user. It is understand that this will also activate if the API is down.
       if (response.status !== 200) {
-        alert("Not a valid location, please try again");
+        return Promise.reject(new Error("Not a valid location, please try again"));
       } else {
         return response.json();
       }
     })
-    .then(function (data) {
-      console.log(data);
+    .then(getAndPrintCurrentWeather, alert)
+    .then(function () {
+      return fetch(forecastURL)
+    })
+    .then(function (response) {
+        return response.json();
+    })
+    .then(data);
+    console.log(data);
+    // getAndPrintForecastWeather
   });
 
-});
+// function that gets current weather and prints it
+function getAndPrintCurrentWeather(data) {
+  var locationTitle = data.name;
+  var currentTemp = data.main.temp;
+  var currentHumidity = data.main.humidity;
+  var currentWind = data.wind.speed;
+  var currentTitle = document.querySelector(".current-title");
+  var currentTempSpan = document.querySelector("#current-temp");
+  var currentWindSpan = document.querySelector("#current-wind");
+  var currentHumiditySpan = document.querySelector("#current-humidity");
 
+  currentTitle.textContent = `${locationTitle}'s Weather, ${formatDate}`;
+  currentTempSpan.textContent = `${currentTemp} °F`;
+  currentWindSpan.textContent = `${currentWind} MPH`;
+  currentHumiditySpan.textContent = `${currentHumidity}%`;
+}
+
+function getAndPrintForecastWeather(data) {
+
+}
 
 // use event delegation to create an event listener on the UL that slides to the appropriate button and activates it

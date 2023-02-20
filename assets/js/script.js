@@ -1,9 +1,15 @@
 // DOM Dependencies
+// for submit eventlistener
 var submitBtn = document.querySelector(".submit-btn");
+
+// for dayjs
+let currentDate = dayjs()
+var dateField = document.querySelector("#current-date");
+var forecastDatesArr = document.querySelectorAll(".forecast-date");
+
 // var recentSearches = document.querySelectorAll(".recentSearches");
-var recentSearchesList = document.querySelector('.recent-searches')
-// var localStorageArr = []; //create an array to pull all localStorage values and print to LIs. 
-// This may be the wrong way. Might make more sense to assign values 0-9 to local storage to pull more naturally
+// var recentSearchesList = document.querySelector('.recent-searches')
+
 
 // Data
 
@@ -23,9 +29,6 @@ var recentSearchesList = document.querySelector('.recent-searches')
 //  Function
 
   //dayJS
-let currentDate = dayjs()
-var dateField = document.querySelector("#current-date");
-var forecastDatesArr = document.querySelectorAll(".forecast-date");
 dateField.textContent = currentDate.format("M/DD/YY");;
 
 for (let i = 0; i < forecastDatesArr.length; i++) {
@@ -33,7 +36,6 @@ for (let i = 0; i < forecastDatesArr.length; i++) {
 }
 
   // API function grab
-    // api key for openweathermap 
 
     // prints to main box
     // prints five day forecast
@@ -45,6 +47,25 @@ for (let i = 0; i < forecastDatesArr.length; i++) {
 
 // User Interactions
 // event listener for submit btn with complex function
+submitBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  console.log("YO")
+  var locationValue = event.target.previousElementSibling.value;
+  
+  requestURL = "https://api.openweathermap.org/data/2.5/weather?q="+locationValue+"&appid=561f93b4cd27217b081260550dc09c48"
+  fetch(requestURL)
+    .then(function (response) {
+      if (response.status !== 200) {
+        alert("Not a valid location, please try again");
+      } else {
+        return response.json();
+      }
+    })
+    .then(function (data) {
+      console.log(data);
+  });
+
+});
 
 
 // use event delegation to create an event listener on the UL that slides to the appropriate button and activates it

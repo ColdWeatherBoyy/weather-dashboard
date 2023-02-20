@@ -22,6 +22,8 @@ for (i = 0; i < localStorageArr.length; i++) {
 
 //  Function
   // API function grab
+    // api key for openweathermap a11efbcfdab02c6a00df97ae6bc165a7
+
     // prints to main box
     // prints five day forecast
     // embedded functions for

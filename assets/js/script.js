@@ -72,10 +72,9 @@ submitBtn.addEventListener("click", function (event) {
       return fetch(forecastURL)
     })
     .then(function (response) {
-        return response.json();
+      return response.json();
     })
-    .then(data);
-    console.log(data);
+    .then(getAndPrintForecastWeather);
     // getAndPrintForecastWeather
   });
 
@@ -85,19 +84,50 @@ function getAndPrintCurrentWeather(data) {
   var currentTemp = data.main.temp;
   var currentHumidity = data.main.humidity;
   var currentWind = data.wind.speed;
+  var weatherIcon = data.weather[0].icon;
   var currentTitle = document.querySelector(".current-title");
   var currentTempSpan = document.querySelector("#current-temp");
   var currentWindSpan = document.querySelector("#current-wind");
   var currentHumiditySpan = document.querySelector("#current-humidity");
 
+  var weatherImage = document.createElement("img");
+
+
   currentTitle.textContent = `${locationTitle}'s Weather, ${formatDate}`;
   currentTempSpan.textContent = `${currentTemp} °F`;
   currentWindSpan.textContent = `${currentWind} MPH`;
   currentHumiditySpan.textContent = `${currentHumidity}%`;
+
+  weatherImage.setAttribute("src", `http://openweathermap.org/img/wn/${weatherIcon}.png`);
+
+  currentTitle.appendChild(weatherImage); 
 }
 
 function getAndPrintForecastWeather(data) {
+  console.log(data.list);
+  for (i = 0; i < 5; i++) {
+    let z = 4+(i*8);
+    console.log(data.list[z]);
+    console.log(z);
+    var forecastTemp = data.list[z].main.temp;
+    var forecastWind = data.list[z].wind.speed;
+    var forecastHumidity = data.list[z].main.humidity;
+    var forecastIcon = data.list[z].weather[0].icon;
 
+    var forecastTempsArr = document.querySelectorAll(".forecast-temp");
+    var forecastWindsArr = document.querySelectorAll(".forecast-wind");
+    var forecastHumidityArr = document.querySelectorAll(".forecast-humidity");
+    var forecastIconsArr = document.querySelectorAll(".forecast-icon");
+
+    var forecastImage = document.createElement("img");
+
+    forecastImage.setAttribute("src", `http://openweathermap.org/img/wn/${forecastIcon}.png`)
+    
+    forecastTempsArr[i].textContent = `${forecastTemp} °F`;
+    forecastWindsArr[i].textContent = `${forecastWind} °F`;
+    forecastHumidityArr[i].textContent = `${forecastHumidity} °F`;
+    forecastIconsArr[i].appendChild(forecastImage);
+  }
 }
 
 // use event delegation to create an event listener on the UL that slides to the appropriate button and activates it

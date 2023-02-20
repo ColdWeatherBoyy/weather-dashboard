@@ -6,45 +6,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
-  <header class="p-5 text-center text-white bg-dark">
+  <header class="p-5 mb-2 text-center text-white bg-dark">
     <h1>Weather Dashboard</h1>
   </header>
 
-  <div class="container-fluid p-2">
-    <main>
-      <section>
-        <form>
-          <!-- Aside form to enter city. Single submitable input. -->
-          <label></label>
-          <input type="text">
-          <button></button>
-          <!-- saves recent search history in local storage -->
-        </form>
-        <ul class="recent-searches">
-          <!-- get local storage to print up to 10 recent searches -->
-          <!-- initialize a click on recent search to resubmit to form -->
-        </ul>
-      </section>
-      <section>
-        <div class="today-weather">
-          <h3>Where do you want to know about today, DATE?</h3>
+  <main class="container-fluid my-5 text-center">
+    <section class="row m-2 d-flex justify-content-center">
+      <form class="col-12 col-lg-3 p-3 justify-content-center">
+        <!-- Aside form to enter city. Single submitable input. -->
+        <div>
+          <h3 class="text-start">Search for a City:</h3>
+        </div>
+        <input class="w-100 my-2" type="text" placeholder="Enter location here">
+        <button class="submit-btn btn btn-dark w-100">Submit</button>
+        <!-- saves recent search history in local storage -->
+      <ul class="recent-searches">
+        <!-- get local storage to print up to 5 recent searches -->
+        <!-- initialize a click on recent search to resubmit to form -->
+      </ul>
+      </form>
+      <div class="col-12 col-lg-9 p-3 row justify-content-center">
+        <div class="card text-bg-light mb-3 today-weather border border-dark col-12">
+          <div class="card-body">
+            <h3 class="card-title">The Weather in <span id="location-name">LOCATION</span>, today, <span id="current-date">DATE</span></h3>
+            <p class="card-text text-start">Temp:</p>
+            <p class="card-text text-start">Wind:</p>
+            <p class="card-text text-start">Humidity:</p>
+          </div>
         </div>
         <!-- needs city name, date, temp, humidity, and windspeed, and an image to represent -->
-        <div class="forecast-cards">
-          <card id="forecast-1"></card>
-          <card id="forecast-2"></card>
-          <card id="forecast-3"></card>
-          <card id="forecast-4"></card>
-          <card id="forecast-5"></card>
+        <div class="forecast-cards border border-dark my-2 col-12 row justify-content-evenly">
+          <h3 class="border-bottom border-dark-subtle text-sm-center text-md-start my-2 py-1">5-Day Forecast</h3>
+          <div class="card text-bg-dark mb-3 col-12 col-md-2 mx-2">
+            <div class="card-body px-0 py-2">
+              <h5 class="card-title mb-4">Date</h5>
+              <p class="card-text text-start">Icon</p>
+              <p class="card-text text-start">Temp</p>
+              <p class="card-text text-start">Wind</p>
+              <p class="card-text text-start">Humidity</p>
+            </div>
+          </div>
+          <div class="card text-bg-dark mb-3 col-12 col-md-2 mx-2">
+            <div class="card-body px-0 py-2">
+              <h5 class="card-title mb-4">Date</h5>
+              <p class="card-text text-start">Icon</p>
+              <p class="card-text text-start">Temp</p>
+              <p class="card-text text-start">Wind</p>
+              <p class="card-text text-start">Humidity</p>
+            </div>
+          </div>
+          <div class="card text-bg-dark mb-3 col-12 col-md-2 mx-2">
+            <div class="card-body px-0 py-2">
+              <h5 class="card-title mb-4">Date</h5>
+              <p class="card-text text-start">Icon</p>
+              <p class="card-text text-start">Temp</p>
+              <p class="card-text text-start">Wind</p>
+              <p class="card-text text-start">Humidity</p>
+            </div>
+          </div>
+          <div class="card text-bg-dark mb-3 col-12 col-md-2 mx-2">
+            <div class="card-body px-0 py-2">
+              <h5 class="card-title mb-4">Date</h5>
+              <p class="card-text text-start">Icon</p>
+              <p class="card-text text-start">Temp</p>
+              <p class="card-text text-start">Wind</p>
+              <p class="card-text text-start">Humidity</p>
+            </div>
+          </div>
+          <div class="card text-bg-dark mb-3 col-12 col-md-2 mx-2">
+            <div class="card-body px-0 py-2">
+              <h5 class="card-title mb-4">Date</h5>
+              <p class="card-text text-start">Icon</p>
+              <p class="card-text text-start">Temp</p>
+              <p class="card-text text-start">Wind</p>
+              <p class="card-text text-start">Humidity</p>
+            </div>
+          </div>
+      
         </div>
-      </section>
-    </main>
-  </div>
+      </div> 
+    </section>
+  </main>
 
+  <script
+  src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+  integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+  crossorigin="anonymous"></script> 
 </body>
 
 </html>

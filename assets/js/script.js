@@ -9,20 +9,31 @@ var recentSearchesList = document.querySelector('.recent-searches')
 
 
 // function to grab values from lcoalstorage to print on page
-for (i = 0; i < localStorageArr.length; i++) {
-  var searchLi = document.createElement("li");
-  var searchBtn = document.createElement("button");
+// for (let i = 0; i < localStorageArr.length; i++) {
+//   var searchLi = document.createElement("li");
+//   var searchBtn = document.createElement("button");
   
-  searchBtn.textContent = localStorage.getItem(i);
+//   searchBtn.textContent = localStorage.getItem(i);
 
-  recentSearchesList.appendChild(searchLi);
-  searchLi.appendChild(searchBtn);
+//   recentSearchesList.appendChild(searchLi);
+//   searchLi.appendChild(searchBtn);
   // Need to make sure styling is right and also ensure this pulls from local Storage correctly.
-}
+// }
 
 //  Function
+
+  //dayJS
+let currentDate = dayjs()
+var dateField = document.querySelector("#current-date");
+var forecastDatesArr = document.querySelectorAll(".forecast-date");
+dateField.textContent = currentDate.format("M/DD/YY");;
+
+for (let i = 0; i < forecastDatesArr.length; i++) {
+  forecastDatesArr[i].textContent = currentDate.add(i+1, 'day').format("M/DD/YY");
+}
+
   // API function grab
-    // api key for openweathermap a11efbcfdab02c6a00df97ae6bc165a7
+    // api key for openweathermap 
 
     // prints to main box
     // prints five day forecast

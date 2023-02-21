@@ -9,26 +9,16 @@ var formatDate = dayjs().format("M/DD/YY")
 var dateField = document.querySelector("#current-date");
 var forecastDatesArr = document.querySelectorAll(".forecast-date");
 
-// Data
+renderStorage();
 
-// function to grab values from localstorage to print on page
-// for (let i = 0; i < localStorageArr.length; i++) {
-//   var searchLi = document.createElement("li");
-//   var searchBtn = document.createElement("button");
-  
-//   searchBtn.textContent = localStorage.getItem(i);
-
-//   recentSearchesList.appendChild(searchLi);
-//   searchLi.appendChild(searchBtn);
-  // Need to make sure styling is right and also ensure this pulls from local Storage correctly.
-// }
-
-  //dayJS
 dateField.textContent = formatDate;
 
 for (let i = 0; i < forecastDatesArr.length; i++) {
   forecastDatesArr[i].textContent = currentDate.add(i+1, 'day').format("M/DD/YY");
 }
+
+  //dayJS
+
 
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
@@ -55,8 +45,8 @@ submitBtn.addEventListener("click", function (event) {
     .then(function (response) {
       return response.json();
     })
-    .then(getAndPrintForecastWeather);
-    // getAndPrintForecastWeather
+    .then(getAndPrintForecastWeather)
+    .then(renderNewStorage);
   });
 
 // function that gets current weather and prints it
@@ -115,18 +105,57 @@ function getAndPrintForecastWeather(data) {
 }
 
 // function for local storage check and creation
-// for localStorage
+// consider adding a check for if its already in local storage
 function storeLocally(locationTitle) {
  if (JSON.parse(localStorage.getItem("recentSearches")) === null) {
     let localStorageArr = [];
     localStorageArr.push(locationTitle);
     localStorage.setItem("recentSearches", JSON.stringify(localStorageArr)); 
-    } else {
+  } else {
     let localStorageArr = JSON.parse(localStorage.getItem("recentSearches"));
     console.log(localStorageArr);
     localStorageArr.push(locationTitle);
     localStorage.setItem("recentSearches", JSON.stringify(localStorageArr));
-    }
+  }
 }
 
+// function to grab values from localstorage to print on page
+function renderStorage() {
+  if (JSON.parse(localStorage.getItem("recentSearches")) !== null) {
+    let localStorageArr = JSON.parse(localStorage.getItem("recentSearches"));
+
+    for (let i = 0 ; i < localStorageArr.length; i++) {
+      var recentSearchesList = document.querySelector(".recent-searches");
+
+      var recentSearchLi = document.createElement("li");
+      var recentSearchBtn = document.createElement("button");
+      
+      recentSearchLi.setAttribute("class", "my-2");
+      recentSearchBtn.textContent = localStorageArr[i];
+      recentSearchBtn.setAttribute("class", "btn btn-secondary w-100")
+
+      recentSearchesList.prepend(recentSearchLi);
+      recentSearchLi.appendChild(recentSearchBtn);
+    }
+  }
+}
+
+function renderNewStorage() {
+  let localStorageArr = JSON.parse(localStorage.getItem("recentSearches"));
+  let newLocation = localStorageArr.pop();
+
+  var recentSearchesList = document.querySelector(".recent-searches");
+  var recentSearchLi = document.createElement("li");
+  var recentSearchBtn = document.createElement("button");
+  
+  recentSearchLi.setAttribute("class", "my-2");
+  recentSearchBtn.textContent = newLocation;
+  recentSearchBtn.setAttribute("class", "btn btn-secondary w-100")
+
+  recentSearchesList.prepend(recentSearchLi);
+  recentSearchLi.appendChild(recentSearchBtn);
+  
+
+  
+}
 // use event delegation to create an event listener on the UL that slides to the appropriate button and activates it

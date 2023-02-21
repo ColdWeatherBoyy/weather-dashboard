@@ -19,6 +19,7 @@ for (let i = 0; i < forecastDatesArr.length; i++) {
 
 // event lisener for submit btn – activates a number of other functions
 submitBtn.addEventListener("click", function (event) {
+  event.stopPropagation();
   event.preventDefault();
   var locationValue = event.target.previousElementSibling.value;
   
@@ -31,6 +32,7 @@ var recentSearchBtnArr = document.querySelectorAll(".recent-btns");
 recentSearchBtnArr.forEach(function(btn) {
   btn.addEventListener("click", function(event){
     event.preventDefault();
+    event.stopImmediatePropagation();
     fetchWeatherData(event.currentTarget.textContent);
   });
 });
@@ -157,7 +159,7 @@ function renderNewStorage() {
   
   recentSearchLi.setAttribute("class", "my-2");
   recentSearchBtn.textContent = newLocation;
-  recentSearchBtn.setAttribute("class", "btn btn-secondary w-100")
+  recentSearchBtn.setAttribute("class", "btn btn-secondary w-100 recent-btns")
 
   recentSearchesList.prepend(recentSearchLi);
   recentSearchLi.appendChild(recentSearchBtn);

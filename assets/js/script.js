@@ -9,14 +9,9 @@ var formatDate = dayjs().format("M/DD/YY")
 var dateField = document.querySelector("#current-date");
 var forecastDatesArr = document.querySelectorAll(".forecast-date");
 
-// var recentSearches = document.querySelectorAll(".recentSearches");
-// var recentSearchesList = document.querySelector('.recent-searches')
-
-
 // Data
 
-
-// function to grab values from lcoalstorage to print on page
+// function to grab values from localstorage to print on page
 // for (let i = 0; i < localStorageArr.length; i++) {
 //   var searchLi = document.createElement("li");
 //   var searchBtn = document.createElement("button");
@@ -28,8 +23,6 @@ var forecastDatesArr = document.querySelectorAll(".forecast-date");
   // Need to make sure styling is right and also ensure this pulls from local Storage correctly.
 // }
 
-//  Function
-
   //dayJS
 dateField.textContent = formatDate;
 
@@ -37,18 +30,6 @@ for (let i = 0; i < forecastDatesArr.length; i++) {
   forecastDatesArr[i].textContent = currentDate.add(i+1, 'day').format("M/DD/YY");
 }
 
-  // API function grab
-
-    // prints to main box
-    // prints five day forecast
-    // embedded functions for
-      // saving to local storage
-      // printing to recent searches
-
-
-
-// User Interactions
-// event listener for submit btn with complex function
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
   console.log("YO");
@@ -101,8 +82,11 @@ function getAndPrintCurrentWeather(data) {
   weatherImage.setAttribute("src", `http://openweathermap.org/img/wn/${weatherIcon}.png`);
 
   currentTitle.appendChild(weatherImage); 
+
+  storeLocally(locationTitle);
 }
 
+// function that gets forecast weather
 function getAndPrintForecastWeather(data) {
   console.log(data.list);
   for (i = 0; i < 5; i++) {
@@ -128,6 +112,21 @@ function getAndPrintForecastWeather(data) {
     forecastHumidityArr[i].textContent = `${forecastHumidity} °F`;
     forecastIconsArr[i].appendChild(forecastImage);
   }
+}
+
+// function for local storage check and creation
+// for localStorage
+function storeLocally(locationTitle) {
+ if (JSON.parse(localStorage.getItem("recentSearches")) === null) {
+    let localStorageArr = [];
+    localStorageArr.push(locationTitle);
+    localStorage.setItem("recentSearches", JSON.stringify(localStorageArr)); 
+    } else {
+    let localStorageArr = JSON.parse(localStorage.getItem("recentSearches"));
+    console.log(localStorageArr);
+    localStorageArr.push(locationTitle);
+    localStorage.setItem("recentSearches", JSON.stringify(localStorageArr));
+    }
 }
 
 // use event delegation to create an event listener on the UL that slides to the appropriate button and activates it

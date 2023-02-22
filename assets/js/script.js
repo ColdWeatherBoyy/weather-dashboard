@@ -27,15 +27,16 @@ submitBtn.addEventListener("click", function (event) {
 });
 
 // event listener with delegation for dynamically generated btns. Re-adds them to recent searches, which may not be ideal functionality long-term.
-var recentSearchBtnArr = document.querySelectorAll(".recent-btns");
+var recentSearchList = document.querySelector(".recent-searches");
 
-recentSearchBtnArr.forEach(function(btn) {
-  btn.addEventListener("click", function(event){
+recentSearchList.addEventListener("click", function(event){
+  if (event.target.classList.contains("recent-btns")) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    fetchWeatherData(event.currentTarget.textContent);
+    fetchWeatherData(event.target.textContent);
+  }
   });
-});
+
 
 // COMPLETE FUNCTIONS
 
@@ -112,6 +113,8 @@ function getAndPrintForecastWeather(data) {
     forecastTempsArr[i].textContent = `${forecastTemp} °F`;
     forecastWindsArr[i].textContent = `${forecastWind} °F`;
     forecastHumidityArr[i].textContent = `${forecastHumidity} °F`;
+
+    forecastIconsArr[i].innerHTML = '';
     forecastIconsArr[i].appendChild(forecastImage);
   }
 }
@@ -124,7 +127,6 @@ function storeLocally(locationTitle) {
     localStorage.setItem("recentSearches", JSON.stringify(localStorageArr)); 
   } else {
     let localStorageArr = JSON.parse(localStorage.getItem("recentSearches"));
-    console.log(localStorageArr);
     localStorageArr.push(locationTitle);
     localStorage.setItem("recentSearches", JSON.stringify(localStorageArr));
   }
